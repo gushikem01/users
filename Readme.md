@@ -3,5 +3,5 @@
 |Type | Service|Language|
 |---|---|---|
 |Database |Dynamodb |NoSQL|
-|Backend | |Golang|
+|Backend | |Golang(Clean arquitecture)|
 |FrontEnd | | |

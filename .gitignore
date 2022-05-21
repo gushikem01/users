@@ -1,2 +1,8 @@
 # env
 .env
+
+# envrc
+.envrc
+
+# log
+*.log
