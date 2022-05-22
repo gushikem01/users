@@ -15,11 +15,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Get Dependencies
-        run: go get -v
-
+      # - name: go get aws lambda library
+      #   run: go get github.com/aws/aws-lambda-go/lambda
+      - name: Tidy
+        run: |
+          cd ./backend/go/
+          go mod tidy
       - name: Build
-        run: go build -v main.go
+        run: |
+          cd ./backend/go/server/cmd/api/
+          go build -v main.go
 
       - name: Zip
         run: zip function.zip main
