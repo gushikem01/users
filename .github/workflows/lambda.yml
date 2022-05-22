@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
+        width:
+          go-version: "1.18"
 
       - name: Checkout Code
         uses: actions/checkout@v2
