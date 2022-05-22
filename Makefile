@@ -23,3 +23,8 @@ air-%: ## air -c $(@:air-%=%)/cmd/api/.air.toml
 .PHONY: task
 task:
 	cd task/cmd/cli && go run main.go
+
+# mkdir -p ~/.aws-lambda-rie && curl -Lo ~/.aws-lambda-rie/aws-lambda-rie \
+# https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie \
+# && chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+# docker run -d -v ~/.aws-lambda-rie:/aws-lambda --entrypoint /aws-lambda/aws-lambda-rie  -p 9000:8080 myfunction:latest /main

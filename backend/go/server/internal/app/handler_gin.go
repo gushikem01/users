@@ -1,8 +1,12 @@
 package app
 
 import (
+	"context"
 	"time"
 
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/awslabs/aws-lambda-go-api-proxy/gin"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/gushikem01/users-go/server/internal/users"
@@ -13,13 +17,15 @@ type AppGin struct {
 	uh *users.UserHandler
 }
 
+var ginLambda *ginadapter.GinLambda
+
 // NewAppGin 作成
 func NewAppGin(uh *users.UserHandler) *AppGin {
 	return &AppGin{uh}
 }
 
 // Run 実行
-func (app *AppGin) Run() error {
+func (app *AppGin) Run() {
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
@@ -48,5 +54,12 @@ func (app *AppGin) Run() error {
 	{
 		app.uh.AddRoute(v1)
 	}
-	return r.Run()
+	ginLambda = ginadapter.New(r)
+	// return r.Run()
+	lambda.Start(Handler)
+}
+
+// Handler ハンドラ
+func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	return ginLambda.ProxyWithContext(ctx, req)
 }

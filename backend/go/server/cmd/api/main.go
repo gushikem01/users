@@ -22,11 +22,7 @@ func main() {
 	us := uusers.NewService(uRepo, l)
 	uh := users.NewUsers(l, us)
 	appGin := app.NewAppGin(uh)
-	err = appGin.Run()
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
+	appGin.Run()
 
 	// l, err := ulog.NewZap()
 	// if err != nil {
