@@ -29,7 +29,9 @@ jobs:
           go build -v main.go
 
       - name: Zip
-        run: zip function.zip main
+        run: |
+          cd ./backend/go/server/cmd/api/
+          zip function.zip main
 
       - name: Deploy
         uses: appleboy/lambda-action@master
